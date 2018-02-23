@@ -1,15 +1,12 @@
 class Sorter {
   constructor() {
     this.data = [];
-    this.comparator = null;
+    this.place = [];
+  this.compareFunc;
   }
 
   add(element) {
-    this.data.push(element);
-  }
-
-  at(index) {
-    return this.data[index];
+  this.data.push(element);
   }
 
   get length() {
@@ -21,24 +18,32 @@ class Sorter {
   }
 
   sort(indices) {
-    indices.sort();
+  this.place = [];
+  indices.sort();
+    for (var i = 0; i < indices.length; i++ ){
+      this.place.push(this.data[indices[i]]);
+    }
 
-    var arrToSort = this.data.filter( function(item, i) {
-      return indices.indexOf(i) > -1;
-    });
+  this.place.sort(this.Compare);
 
-    arrToSort.sort(this.comparator);
-
-    this.data = this.data.map(function (item, i) {
-      var index = indices.indexOf(i);
-      return index > -1 ? arrToSort[index] : item;
-    })
-
+  for (var i = 0; i < indices.length; i++  ){
+      this.data[indices[i]] = this.place[i];
+    }
   }
 
-  setComparator(compareFunction) {
-    this.comparator = compareFunction;
+  setComparator(CompareFunction) {
+  this.Compare = CompareFunction;
   }
+
+  at(index){
+  return this.data[index];
+  }
+
+  Compare(left,right)
+  {
+  return left-right;
+  }
+
 }
 
 module.exports = Sorter;
