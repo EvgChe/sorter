@@ -2,7 +2,6 @@ class Sorter {
   constructor() {
     this.data = [];
     this.place = [];
-  this.compareFunc;
   }
 
   add(element) {
